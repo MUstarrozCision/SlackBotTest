@@ -35,5 +35,8 @@ jobs:
 #        if: contains(steps.changed-files.outputs.modified_files, 'src/com/company/resources/schema.graphqls')
         run: |
             echo "Graphql Schema for CDS has changed."
+            echo ${{ secrets.QUANTUM_CODE_ALERTS_WEBHOOK }}
+            echo ${{ QUANTUM_CODE_ALERTS_WEBHOOK }}
+          
             cat 'src/com/company/resources/schema.graphqls'
             curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' ${{ secrets.QUANTUM_CODE_ALERTS_WEBHOOK }}
