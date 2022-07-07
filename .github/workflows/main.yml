@@ -16,27 +16,33 @@ jobs:
   build:
     runs-on: ubuntu-latest  # windows-latest | macos-latest
     name: Test changed-files
+    env:
+      QUANTUM_CODE_ALERTS_WEBHOOK: ${{ secrets.QUANTUM_CODE_ALERTS_WEBHOOK }}
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
+      - if: ${{ env.QUANTUM_CODE_ALERTS_WEBHOOK != '' }}
+        run: echo 'This step will only run if the secret has a value set.'
+      - if: ${{ env.QUANTUM_CODE_ALERTS_WEBHOOK == '' }}
+        run: echo 'This step will only run if the secret does not have a value set.'
 
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v23.1
+#      - uses: actions/checkout@v3
+#        with:
+#          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
+#
+#      - name: Get changed files
+#        id: changed-files
+#        uses: tj-actions/changed-files@v23.1
+#
+#      - name: List all changed files
+#        run: |
+#          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+#            echo "$file was changed"
+#          done
 
-      - name: List all changed files
-        run: |
-          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            echo "$file was changed"
-          done
-
-      - name: Run step when GrapqhQL Schema changes
-        env:
-          QUANTUM_CODE_ALERTS_WEBHOOK: ${{ secrets.QUANTUM_CODE_ALERTS_WEBHOOK }}
-#        if: contains(steps.changed-files.outputs.modified_files, 'src/com/company/resources/schema.graphqls')
-        run: |
-            echo "Graphql Schema for CDS has changed."
-          
-            cat 'src/com/company/resources/schema.graphqls'
-            curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' "$QUANTUM_CODE_ALERTS_WEBHOOK"
+#      - name: Run step when GrapqhQL Schema changes
+#
+##        if: contains(steps.changed-files.outputs.modified_files, 'src/com/company/resources/schema.graphqls')
+#        run: |
+#            echo "Graphql Schema for CDS has changed."
+#
+#            cat 'src/com/company/resources/schema.graphqls'
+#            curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' "$QUANTUM_CODE_ALERTS_WEBHOOK"
