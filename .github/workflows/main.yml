@@ -21,30 +21,26 @@ jobs:
     env:
       QUANTUM_CODE_ALERTS_WEBHOOK: ${{ secrets.QUANTUM_CODE_ALERTS_WEBHOOK }}
     steps:
-      - if: ${{ env.QUANTUM_CODE_ALERTS_WEBHOOK != '' }}
-        run: echo 'This step will only run if the secret has a value set.'
-      - if: ${{ env.QUANTUM_CODE_ALERTS_WEBHOOK == '' }}
-        run: echo 'This step will only run if the secret does not have a value set.'
 
-#      - uses: actions/checkout@v3
-#        with:
-#          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
-#
-#      - name: Get changed files
-#        id: changed-files
-#        uses: tj-actions/changed-files@v23.1
-#
-#      - name: List all changed files
-#        run: |
-#          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-#            echo "$file was changed"
-#          done
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
 
-#      - name: Run step when GrapqhQL Schema changes
-#
-##        if: contains(steps.changed-files.outputs.modified_files, 'src/com/company/resources/schema.graphqls')
-#        run: |
-#            echo "Graphql Schema for CDS has changed."
-#
-#            cat 'src/com/company/resources/schema.graphqls'
-#            curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' "$QUANTUM_CODE_ALERTS_WEBHOOK"
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v23.1
+
+      - name: List all changed files
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "$file was changed"
+          done
+
+      - name: Run step when GrapqhQL Schema changes
+
+#        if: contains(steps.changed-files.outputs.modified_files, 'src/com/company/resources/schema.graphqls')
+        run: |
+            echo "Graphql Schema for CDS has changed."
+
+            cat 'src/com/company/resources/schema.graphqls'
+            curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' ${{ env.QUANTUM_CODE_ALERTS_WEBHOOK }}
