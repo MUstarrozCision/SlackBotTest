@@ -36,4 +36,4 @@ jobs:
         run: |
             echo "Graphql Schema for CDS has changed."
             cat 'src/com/company/resources/schema.graphqls'
-            curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/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
+            curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/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
