@@ -32,5 +32,5 @@ jobs:
           done
 
       - name: Run step when a file changes
-          run: |
+        run: |
             echo "Your my-file.txt file has been modified."
