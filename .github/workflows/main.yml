@@ -41,6 +41,7 @@ jobs:
 #        if: contains(steps.changed-files.outputs.modified_files, 'src/com/company/resources/schema.graphqls')
         run: |
             echo "Graphql Schema for CDS has changed."
-
+            value=$(<src/com/company/resources/schema.graphqls)
+            echo "$value"
             cat 'src/com/company/resources/schema.graphqls'
             curl -X POST -H 'Content-type: application/json' --data '{"text":"'$('src/com/company/resources/schema.graphqls')'"}' ${{ env.QUANTUM_CODE_ALERTS_WEBHOOK }}
