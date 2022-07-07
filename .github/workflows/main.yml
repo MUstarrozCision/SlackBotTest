@@ -35,4 +35,4 @@ jobs:
         if: contains(steps.changed-files.outputs.modified_files, 'src/com/company/resources/schema.graphqls')
         run: |
             echo "Graphql Schema for CDS has changed."
-            cat 'src/com/company/resources/schema.graphqls'
+            toJson(cat 'src/com/company/resources/schema.graphqls')
