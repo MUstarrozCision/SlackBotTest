@@ -32,8 +32,5 @@ jobs:
           done
 
       - name: Run step when a file changes
-          shell: bash
-
-          if: ${{ contains('Hello world', 'llo') }}
           run: |
             echo "Your my-file.txt file has been modified."
