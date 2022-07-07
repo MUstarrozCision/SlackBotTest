@@ -42,7 +42,7 @@ jobs:
         run: |
             echo "Graphql Schema for CDS has changed."
             value=$(<src/com/company/resources/schema.graphqls)
-            curl -g --location --request POST ${{ env.QUANTUM_CODE_ALERTS_WEBHOOK }} --header 'Content-Type: application/json' --data-raw '{ "text" : "'$value'"}'
+            curl --location --request POST ${{ env.QUANTUM_CODE_ALERTS_WEBHOOK }} --header 'Content-Type: application/json' --data '{ "text" : "'$value'"}'
 
 #            curl -X POST -H 'Content-type: application/json' --data-raw '{"text":"'$(echo "$value")'"}' ${{ env.QUANTUM_CODE_ALERTS_WEBHOOK }}
 
