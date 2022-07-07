@@ -32,7 +32,7 @@ jobs:
           done
 
       - name: Run step when GrapqhQL Schema changes
-        if: contains(steps.changed-files.outputs.modified_files, 'src/com/company/resources/schema.graphqls')
+#        if: contains(steps.changed-files.outputs.modified_files, 'src/com/company/resources/schema.graphqls')
         run: |
             echo "Graphql Schema for CDS has changed."
             toJson(cat 'src/com/company/resources/schema.graphqls')
