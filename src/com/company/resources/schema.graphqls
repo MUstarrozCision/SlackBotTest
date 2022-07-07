@@ -1,5 +1,5 @@
-type Query {
-    newswires(params: InputParameters = {article_body_length: 200, article_number: 25}): [Newswire]
+{type Query {
+   newswires(params: InputParameters = {article_body_length: 200, article_number: 25}): [Newswire]
     newswiresSearch(params: InputParameters = {article_body_length: 200, article_number: 25}) : [Newswire]
     shows: [Show]
 
@@ -20,7 +20,7 @@ type Newswire {
     publish_date: String
     fulltext_url: String
     hola: String
-}
+}}
 
 input InputParameters {
     article_body_length: Int
