@@ -19,6 +19,7 @@ type Newswire {
     thumbnail_url : String
     publish_date: String
     fulltext_url: String
+    hola: String
 }
 
 input InputParameters {

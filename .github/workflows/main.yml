@@ -31,7 +31,8 @@ jobs:
             echo "$file was changed"
           done
 
-      - name: Run step when a file changes
-        if: contains(steps.changed-files.outputs.modified_files, 'my-file.txt')
+      - name: Run step when GrapqhQL Schema changes
+        if: contains(steps.changed-files.outputs.modified_files, 'src/com/company/resources/schema.graphqls')
         run: |
-            echo "Your my-file.txt file has been modified."
+            echo "Graphql Schema for CDS has changed."
+            cat 'src/com/company/resources/schema.graphqls'
