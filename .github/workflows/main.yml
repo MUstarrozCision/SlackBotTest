@@ -16,6 +16,8 @@ jobs:
   build:
     runs-on: ubuntu-latest  # windows-latest | macos-latest
     name: Test changed-files
+    environment: slackbot  # secrets environment
+
     env:
       QUANTUM_CODE_ALERTS_WEBHOOK: ${{ secrets.QUANTUM_CODE_ALERTS_WEBHOOK }}
     steps:
