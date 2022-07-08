@@ -51,4 +51,4 @@ jobs:
           fetch-depth: 0
       - run: |
             difference = $(git diff ${{github.event.before}} ${{github.sha}})
-            curl --location --request POST ${{ env.QUANTUM_CODE_ALERTS_WEBHOOK }} --header 'Content-Type: application/json' --data "{ "text" : '$value'}"
+            curl --location --request POST ${{ env.QUANTUM_CODE_ALERTS_WEBHOOK }} --header 'Content-Type: application/json' --data "{ "text" : '$difference'}"
