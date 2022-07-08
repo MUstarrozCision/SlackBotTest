@@ -44,6 +44,7 @@ jobs:
 #            curl --location --request POST ${{ env.QUANTUM_CODE_ALERTS_WEBHOOK }} --header 'Content-Type: application/json' --data "{ "text" : '$value'}"
 
       - name: Send Diff bewteen last two commits
+        if: contains(steps.changed-files.outputs.modified_files, 'src/com/company/resources/schema.graphqls')
         run: |
           difference=$(git diff ${{github.event.before}} ${{github.sha}})
           echo $difference
