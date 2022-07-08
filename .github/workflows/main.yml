@@ -36,12 +36,12 @@ jobs:
             echo "$file was changed"
           done
 
-      - name: Run step when GrapqhQL Schema changes
+#      - name: Run step when GrapqhQL Schema changes
 #        if: contains(steps.changed-files.outputs.modified_files, 'src/com/company/resources/schema.graphqls')
-        run: |
-            echo "Graphql Schema for CDS has changed."
-            value=$(<src/com/company/resources/schema.graphqls)
-            curl --location --request POST ${{ env.QUANTUM_CODE_ALERTS_WEBHOOK }} --header 'Content-Type: application/json' --data "{ "text" : '$value'}"
+#        run: |
+#            echo "Graphql Schema for CDS has changed."
+#            value=$(<src/com/company/resources/schema.graphqls)
+#            curl --location --request POST ${{ env.QUANTUM_CODE_ALERTS_WEBHOOK }} --header 'Content-Type: application/json' --data "{ "text" : '$value'}"
 
       - name: Send Diff bewteen last two commits
         run: |
