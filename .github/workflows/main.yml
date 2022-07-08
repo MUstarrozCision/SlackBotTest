@@ -45,5 +45,5 @@ jobs:
 
       - name: Send Diff bewteen last two commits
         run: |
-          difference = $(git diff ${{github.event.before}} ${{github.sha}})
+          difference=$(git diff ${{github.event.before}} ${{github.sha}})
           curl --location --request POST ${{ env.QUANTUM_CODE_ALERTS_WEBHOOK }} --header 'Content-Type: application/json' --data "{ "text" : '$difference'}"
