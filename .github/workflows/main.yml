@@ -37,7 +37,6 @@ jobs:
           done
 
       - name: Run step when GrapqhQL Schema changes
-
         if: contains(steps.changed-files.outputs.modified_files, 'src/com/company/resources/schema.graphqls')
         run: |
             echo "Graphql Schema for CDS has changed."
@@ -49,6 +48,6 @@ jobs:
         with:
           # checkout full tree
           fetch-depth: 0
-      - run: |
+        run: |
             difference = $(git diff ${{github.event.before}} ${{github.sha}})
             curl --location --request POST ${{ env.QUANTUM_CODE_ALERTS_WEBHOOK }} --header 'Content-Type: application/json' --data "{ "text" : '$difference'}"
