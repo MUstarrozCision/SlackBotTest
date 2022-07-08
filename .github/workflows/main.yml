@@ -42,12 +42,3 @@ jobs:
             echo "Graphql Schema for CDS has changed."
             value=$(<src/com/company/resources/schema.graphqls)
             curl --location --request POST ${{ env.QUANTUM_CODE_ALERTS_WEBHOOK }} --header 'Content-Type: application/json' --data "{ "text" : '$value'}"
-
-      - name: Send Diff bewteen last two commits
-      - uses: actions/checkout@v2
-        with:
-          # checkout full tree
-          fetch-depth: 0
-        run: |
-            difference = $(git diff ${{github.event.before}} ${{github.sha}})
-            curl --location --request POST ${{ env.QUANTUM_CODE_ALERTS_WEBHOOK }} --header 'Content-Type: application/json' --data "{ "text" : '$difference'}"
