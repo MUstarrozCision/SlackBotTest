@@ -36,16 +36,17 @@ jobs:
             echo "$file was changed"
           done
 
-#      - name: Run step when GrapqhQL Schema changes
-#        if: contains(steps.changed-files.outputs.modified_files, 'src/com/company/resources/schema.graphqls')
-#        run: |
-#            echo "Graphql Schema for CDS has changed."
-#            value=$(<src/com/company/resources/schema.graphqls)
-#            curl --location --request POST ${{ env.QUANTUM_CODE_ALERTS_WEBHOOK }} --header 'Content-Type: application/json' --data "{ "text" : '$value'}"
-
-      - name: Send Diff bewteen last two commits
+      - name: Run step when GrapqhQL Schema changes
         if: contains(steps.changed-files.outputs.modified_files, 'src/com/company/resources/schema.graphqls')
         run: |
-          difference=$(git diff ${{github.event.before}} ${{github.sha}})
-          echo $difference
-          curl --location --request POST ${{ env.QUANTUM_CODE_ALERTS_WEBHOOK }} --header 'Content-Type: application/json' --data "{ "text" : '$difference'}"
+             echo "Graphql Schema for CDS has changed."
+             curl --location --request POST ${{ env.QUANTUM_CODE_ALERTS_WEBHOOK }} --header 'Content-Type: application/json' --data "{ "text" : '$difference'}"
+#            value=$(<src/com/company/resources/schema.graphqls)
+#            curl --location --request POST ${{ env.QUANTUM_CODE_ALERTS_WEBHOOK }} --header 'Content-Type: application/json' --data "{ "text" : '$value'}"
+#
+#      - name: Send Diff bewteen last two commits
+#        if: contains(steps.changed-files.outputs.modified_files, 'src/com/company/resources/schema.graphqls')
+#        run: |
+#          difference=$(git diff ${{github.event.before}} ${{github.sha}})
+#          echo $difference
+#          curl --location --request POST ${{ env.QUANTUM_CODE_ALERTS_WEBHOOK }} --header 'Content-Type: application/json' --data "{ "text" : '$difference'}"
